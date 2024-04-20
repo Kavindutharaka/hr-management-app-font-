@@ -3,11 +3,12 @@ import { useNavigate } from "react-router-dom";
 
 function LoginMain() {
   const navigate = useNavigate();
+
   function navAdminLogin() {
-    navigate("/adminlogin");
+    navigate("/adminlogin");   
   }
   function navEmpLogin() {
-    navigate("/userlogin");
+    navigate("/userlogin");    
   }
   return (
     <div className="container">
