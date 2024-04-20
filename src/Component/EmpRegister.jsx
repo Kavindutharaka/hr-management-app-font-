@@ -11,7 +11,9 @@ function EmpRegister() {
   const [lock, setLock] = useState(false);
   // const todayDate = Date.now("yyyy-mm-dd");
   const today = new Date();
-  const todayDate = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+  const todayDate = `${today.getFullYear()}-${
+    today.getMonth() + 1
+  }-${today.getDate()}`;
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -22,29 +24,27 @@ function EmpRegister() {
     if (param !== null) {
       fetchEdit(param);
     }
-    
   }, []);
 
   const fetchEdit = async (editId) => {
     try {
-      if(editId !== 0){
-      const response = await client.get(`/employee/${editId}`);
-      const data = response.data.data;
-      setLock(true);
-      console.log("this is get byID : ", data);
-      // setDate(data.join_date);
-      setName(data.name);
-      setEmail(data.email);
-      setPassword(data.password);
-      
-    }
+      if (editId !== 0) {
+        const response = await client.get(`/employee/${editId}`);
+        const data = response.data.data;
+        setLock(true);
+        console.log("this is get byID : ", data);
+        // setDate(data.join_date);
+        setName(data.name);
+        setEmail(data.email);
+        setPassword(data.password);
+      }
     } catch (error) {
       console.error("Error:", error);
     }
   };
   function handleUpdate() {
     client
-      .put(`/employee/${param}`, { name, email, password})
+      .put(`/employee/${param}`, { name, email, password })
       .then((response) => {
         console.log(response.data.message);
         alert(response.data.message);
@@ -95,41 +95,52 @@ function EmpRegister() {
     setPassword("");
   }
   return (
-    <div>
-      <button
-        onClick={() => {
-          navigate("/admin");
-        }}
-      >
-        Close
-      </button>
-      <input
-        type="text"
-        placeholder="Enter Name"
-        onChange={handleUserName}
-        className="loginp1"
-        value={name}
-      />
-      <input
-        type="text"
-        placeholder="Enter Email"
-        onChange={handleUserEmai}
-        className="loginp1"
-        value={email}
-      />
+    <div className="content">
+      <div className="row">
+        <button
+          onClick={() => {
+            navigate("/admin");
+          }}
+          className="btn2"
+        >
+          Close
+        </button>
+      </div>
 
-      <input
-        type="password"
-        placeholder="Enter Password"
-        onChange={handleUserPwd}
-        className="loginp1"
-        value={password}
-        disabled={lock}
-      />
-      {lock && <button onClick={passwordUnlock}>unlock</button>}
-      <button onClick={param ? handleUpdate : handleRegister} className="btn1">
-        {param ? "Update" : "Register"}
-      </button>
+      <div className="row">
+        <div className="formContainer">
+          <input
+            type="text"
+            placeholder="Enter Name"
+            onChange={handleUserName}
+            className="inputField"
+            value={name}
+          />
+          <input
+            type="text"
+            placeholder="Enter Email"
+            onChange={handleUserEmai}
+            className="inputField"
+            value={email}
+          />
+
+          <input
+            type="password"
+            placeholder="Enter Password"
+            onChange={handleUserPwd}
+            className="inputField"
+            value={password}
+            disabled={lock}
+          />
+          {lock && <button onClick={passwordUnlock}>unlock</button>}
+          <button
+            onClick={param ? handleUpdate : handleRegister}
+            className="btn1 submitBtn"
+          >
+            {param ? "Update" : "Register"}
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

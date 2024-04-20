@@ -12,9 +12,9 @@ function LoginMain() {
   }
   return (
     <div className="container">
-      <div className="loginMainContent">
+      <div className="mainContent">
         <div className="row">
-          <h3 className="h3-1">Welcome To HR Management System</h3>
+          <h3 className="h3-1 titletxt">Welcome To HR Management System</h3>
         </div>
 
         <div className="row">

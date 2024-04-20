@@ -65,24 +65,23 @@ const navigate = useNavigate();
     }
   }
   return (
-    <div>
-      <div className="loginMainContent loginContainer">
+    <div className="row">
+      <div className="formContainer loginForm">
         <span className="loginTxt">Login</span>
-
         <input
           type="text"
           placeholder="Enter UserName"
           onChange={handleUserName}
-          className="loginp1"
+          className="inputField"
           value={userName}
         />
         <input
           type="text"
           placeholder="Enter Password"
           onChange={handleUserPwd}
-          className="loginp1"
+          className="inputField"
         />
-        <button onClick={handleLogin} className="btn1">
+        <button onClick={handleLogin} className="btn1 submitBtn">
           Login
         </button>
       </div>
