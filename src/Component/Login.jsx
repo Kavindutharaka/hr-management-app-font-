@@ -1,18 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, {  useContext, useEffect, useState } from "react";
 import "./LoginStyle.css";
 // import axios from "axios";
 import client from "../apiConfig";
 import { useNavigate } from "react-router-dom";
+import { userAuth } from "../App";
 
 function Login({ userType }) {
-//   const client = axios.create({
-//     baseURL: "http://localhost:3001",
-//   });
+
 const navigate = useNavigate();
   const [userName, setUserName] = useState("");
   const [userPwd, setUserPwd] = useState("");
 
-  useEffect(() => {}, []);
+  const {setToken,token} = useContext(userAuth);
+
+  useEffect(() => {
+  }, []);
+
+  // const handleLoginResponse = (response) => {
+  //   const token = response.data.token;
+  //   document.cookie = `token=${token}; path=/;`;
+  // }
 
   const authAdmin = async () => {
     await client
@@ -36,14 +43,20 @@ const navigate = useNavigate();
       password: userPwd
     }).then((response)=>{
 
-      console.log(response.data.message);
+      // handleLoginResponse(response);
+      console.log("employee id",response.data);
+      setToken(response.data.token);
+      console.log(token)
+      // const loginStatus = "true";
+      // sessionStorage.setItem('loginStatus', loginStatus);
       alert(response.data.message);
+      navigate("/user");
 
     }).catch((err)=>{
-      console.log(err);
+      console.log(err.data.message);
     });
   };
-
+  
   function handleUserName(e) {
     const userName = e.target.value;
     setUserName(userName);
@@ -54,6 +67,7 @@ const navigate = useNavigate();
     setUserPwd(password);
   }
   function handleLogin(e) {
+    e.preventDefault();
     if(userName ==='' || userPwd ===''){
       alert("field cannot be null")
     }
@@ -65,6 +79,7 @@ const navigate = useNavigate();
     }
   }
   return (
+
     <div className="row">
       <div className="formContainer loginForm">
         <span className="loginTxt">Login</span>

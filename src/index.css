@@ -121,6 +121,25 @@ body {
   transform: scale(1.05);
 }
 
+.btn3 {
+  font-family: "Rubik";
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px;
+  color: #fff;
+  background: var(--red);
+  border: none;
+  border-radius: 25px;
+  width: 150px;
+  cursor: pointer;
+  margin: 0 10px;
+  transition: transform 0.3s ease;
+}
+
+.btn3:hover {
+  transform: scale(1.05);
+}
+
 .r-btn {
   margin-left: auto;
 }

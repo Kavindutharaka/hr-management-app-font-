@@ -1,18 +1,28 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import client from "../apiConfig";
 import { useNavigate } from "react-router-dom";
+import { userAuth } from "../App";
 
 function LeaveApplication() {
   const [sDate, setSDate] = useState("");
   const [eDate, setEDate] = useState("");
   const [reason, setReason] = useState("");
   const navigate = useNavigate();
+  const {token} = useContext(userAuth);
 
   function reqSubmision() {
     client
-      .post("/employee/leave")
+      .post("/employee/leave",{
+        start_date: sDate,
+        end_date: eDate,
+        reason: reason
+      },{
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
-        console.log(res);
+        console.log(res.data.message);
       })
       .catch((err) => {
         console.log(err);
@@ -37,7 +47,7 @@ function LeaveApplication() {
           <input
             type="date"
             onChange={(e) => {
-              setSDate(e.target.value.toString);
+              setSDate(e.target.value);
             }}
             className="inputField"
             value={sDate}
@@ -45,7 +55,7 @@ function LeaveApplication() {
           <input
             type="date"
             onChange={(e) => {
-              setEDate(e.target.value.toString);
+              setEDate(e.target.value);
             }}
             className="inputField"
             value={eDate}

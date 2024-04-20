@@ -18,7 +18,7 @@ function Admin() {
       const response = await client.get("/employee");
       const data = response.data;
 
-      // Format the join_date for each employee
+     
       const formattedData = data.map((emp) => {
         const date = new Date(emp.join_date);
         const formattedJoinDate = `${date.getFullYear()}-${
@@ -27,7 +27,7 @@ function Admin() {
         return { ...emp, join_date: formattedJoinDate };
       });
 
-      // Set the formatted employee data
+  
       setEmployee(formattedData);
 
       console.log(formattedData);
@@ -80,6 +80,7 @@ function Admin() {
                 <td>{emp.join_date}</td>
                 <td>
                   <button
+                  className="btn1"
                     onClick={() => {
                       handleEdit(emp._id);
                     }}
@@ -89,6 +90,7 @@ function Admin() {
                 </td>
                 <td>
                   <button
+                  className="btn3"
                     onClick={() => {
                       handleDelete(emp._id);
                     }}
