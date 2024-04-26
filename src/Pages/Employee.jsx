@@ -2,32 +2,29 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LeaveCard from "../Component/LeaveCard";
 import client from "../apiConfig";
-import { userAuth } from "../App";
+import { UserAuthContext } from "../Context/Auth";
 
 function Employee() {
-  const[data,setData] = useState("");
+  const [data, setData] = useState([]);
   const navigate = useNavigate();
-  const {token} = useContext(userAuth);
+  const { userId } = useContext(UserAuthContext);
 
-  useEffect(()=>{
-    // getLeaveDetails();
-  },[setData]);
+  useEffect(() => {
+    getLeaveDetails();
+    console.log("this is log emp id: ", userId);
+  }, [setData]);
 
   function reqLeave() {
     navigate("/user/leave");
   }
   async function getLeaveDetails() {
-    try{
-    const data = await client.get("/admin/leave",{
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    console.log(data);
-    setData(data);
-  }catch(err){
-    console.log(err);
-  }
+    try {
+      const response = await client.get("/admin/leave");
+      console.log(response.data);
+      setData(response.data);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (
@@ -41,7 +38,10 @@ function Employee() {
         <h3 className="h3-1 titletxt">Leave Details</h3>
       </div>
       <div className="row">
-        <LeaveCard />
+      {data.map((leave) => (
+  <LeaveCard key={leave._id} data={leave} />
+))}
+
       </div>
     </div>
   );

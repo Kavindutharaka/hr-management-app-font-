@@ -1,14 +1,14 @@
 import React, { useContext, useState } from "react";
 import client from "../apiConfig";
 import { useNavigate } from "react-router-dom";
-import { userAuth } from "../App";
+import { UserAuthContext } from '../Context/Auth';
 
 function LeaveApplication() {
   const [sDate, setSDate] = useState("");
   const [eDate, setEDate] = useState("");
   const [reason, setReason] = useState("");
   const navigate = useNavigate();
-  const {token} = useContext(userAuth);
+  const {token} = useContext(UserAuthContext);
 
   function reqSubmision() {
     client

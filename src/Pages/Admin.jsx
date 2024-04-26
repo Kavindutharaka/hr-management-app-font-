@@ -1,21 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import client from "../apiConfig";
 import "../Component/LoginStyle.css";
+import { UserAuthContext } from '../Context/Auth';
 
 function Admin() {
   const navigate = useNavigate();
   const [employee, setEmployee] = useState([]);
+  const { userId } = useContext(UserAuthContext);
 
   //   const [type, setType] = useState('');
 
   useEffect(() => {
     fetchEmp();
+    console.log(userId);
   }, []);
 
   async function fetchEmp() {
     try {
-      const response = await client.get("/employee");
+      const response = await client.get("/employee", { withCredentials: true });
       const data = response.data;
 
      
